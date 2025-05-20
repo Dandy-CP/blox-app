@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Form, Input, Button, Select } from 'antd';
 import { LayoutOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
@@ -10,11 +11,13 @@ const CreateUser = () => {
   const [status, setStatus] = useState('');
   const [isErrorForm, setIsErrorForm] = useState(false);
 
+  const router = useRouter();
+
   const { mutateAsync, isPending } = CreateNewUser({
     options: {
       onSuccess() {
         toast.success('Create User Success');
-        window.location.replace('/');
+        router.replace('/dashboard');
       },
       onError() {
         toast.error('Create User Failed');

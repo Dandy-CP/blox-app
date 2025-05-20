@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Form, Input, Button, Select } from 'antd';
 import { LayoutOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
@@ -13,6 +14,7 @@ const CreatePost = () => {
   const [isErrorForm, setIsErrorForm] = useState(false);
 
   const queryValue = useDebounce(userName, 1000);
+  const router = useRouter();
 
   const { data: dataUsers } = GetListUsers({
     options: {
@@ -27,8 +29,8 @@ const CreatePost = () => {
   const { mutateAsync, isPending } = CreateNewPost({
     options: {
       onSuccess() {
-        toast.success('Create User Success');
-        window.location.replace('/');
+        toast.success('Create Post Success');
+        router.replace('/dashboard');
       },
       onError() {
         toast.error('Create User Failed');
